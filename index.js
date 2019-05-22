@@ -69,6 +69,12 @@
             .then((response) => {
                 clearTimeout(processHandler);
                 console.log("!!!!!!!!! got response = ", response);
+                if (response.json) {
+                    response.json()
+                        .then((result) => {
+                            console.log("!!!!!!!!! got response json = ", result);
+                        });
+                }
             });
     });
 
