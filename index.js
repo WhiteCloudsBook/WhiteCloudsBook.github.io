@@ -73,6 +73,16 @@
         downloadUrl = null;
     };
 
+    const handleAccessDenied = () => {
+        openDownloadModal();
+        dlModal.classList.add("modal-error");
+        dlModal.querySelector(".input-error").textContent = "Incorrect password, please try again";
+    };
+
+    const handleDownloadError = () => {
+        openDownloadModal();
+    };
+
     const handleSuccessfulDownload = (response) => {
         response.json()
             .then((result) => {
@@ -80,16 +90,11 @@
                 downloadUrl = result.info.downloadUrl;
                 isDownloadSuccess = true;
                 openSuccessModal();
+            })
+            .catch((error) => {
+                console.log("failed to get response json", error);
+                handleDownloadError();
             });
-    };
-
-    const handleAccessDenied = () => {
-        dlModal.classList.add("modal-error");
-        dlModal.querySelector(".input-error").textContent = "Incorrect password, please try again";
-    };
-
-    const handleDownloadError = () => {
-
     };
 
     openBook.addEventListener("click", () => {
