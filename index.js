@@ -3,18 +3,25 @@
     const DL_URL = "https://us-central1-whiteclouds-share.cloudfunctions.net/whitecloudsShare";
 
     const overlay = document.querySelector("#overlay"),
-        dlModalOpen = document.querySelectorAll(".dl-modal-open"),
         dlModal = document.querySelector("#download-modal"),
         successModal = document.querySelector("#success-modal"),
         loadingModal = document.querySelector("#loading-modal"),
-        closeModalBtn = dlModal.querySelector(".close-modal"),
-        dlPassword = dlModal.querySelector("#dl-password"),
-        download = document.querySelector("#dl-book"),
-        openBook = document.querySelector("#open-book");
+        dlPassword = dlModal.querySelector("#dl-password");
 
     let currentModal = null,
         downloadUrl = null,
         isDownloadSuccess = false;
+
+    const addClick = (selector, cb) => {
+        const elms = typeof selector === "string" ?
+            document.querySelectorAll(selector) :
+            [selector];
+
+        [...elms]
+            .forEach((elm) => {
+                elm.addEventListener("click", cb);
+            });
+    };
 
     const closeModal = () => {
         currentModal.removeEventListener("click", handleClickOutsideModal);
@@ -35,7 +42,7 @@
         currentModal = modal;
         currentModal.classList.add("flex");
         overlay.classList.remove("hidden");
-        overlay.addEventListener("click", handleClickOutsideModal);
+        addClick(overlay, handleClickOutsideModal);
     };
 
     const openSuccessModal = () => openModal(successModal);
@@ -59,14 +66,8 @@
         loadingModal.querySelector("h3").textContent = text;
     }
 
-    [...dlModalOpen]
-        .forEach((button) => {
-            button.addEventListener("click", openDownloadModal)
-        });
-
-    closeModalBtn.addEventListener("click", () => {
-        closeModal();
-    });
+    addClick(".dl-modal-open", openDownloadModal);
+    addClick(".close-modal", closeModal);
 
     const clearDownloadSuccess = () => {
         isDownloadSuccess = false;
@@ -97,40 +98,45 @@
             });
     };
 
-    openBook.addEventListener("click", () => {
+    addClick("#open-book", () => {
         if (downloadUrl) {
             window.open(downloadUrl);
         }
     });
 
-    download.addEventListener("click", () => {
-        openLoadingModal("Authenticating...");
+    addClick("#dl-book", () => {
 
-        const processHandler = setTimeout(() => {
-            openLoadingModal("Generating...");
-        }, 1000);
+        let password = dlPassword.value.replace(/^\W*|\W*$/g, "");
 
-        fetch(DL_URL, {
-            method: "POST",
-            cache: "no-cache",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ password: dlPassword.value })
-        })
-            .then((response) => {
-                clearTimeout(processHandler);
+        if (password.length) {
+            openLoadingModal("Authenticating...");
 
-                if (response.ok) {
-                    handleSuccessfulDownload(response);
-                }
-                else if (response.status === 401) {
-                    handleAccessDenied();
-                }
-                else {
-                    handleDownloadError();
-                }
-            });
+            const processHandler = setTimeout(() => {
+                openLoadingModal("Generating...");
+            }, 1000);
+
+            fetch(DL_URL, {
+                method: "POST",
+                cache: "no-cache",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ password })
+            })
+                .then((response) => {
+                    clearTimeout(processHandler);
+
+                    if (response.ok) {
+                        handleSuccessfulDownload(response);
+                    }
+                    else if (response.status === 401) {
+                        handleAccessDenied();
+                    }
+                    else {
+                        handleDownloadError();
+                    }
+                });
+        }
     });
 
 })();
