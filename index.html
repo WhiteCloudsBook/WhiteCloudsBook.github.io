@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
@@ -7,9 +8,23 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta charset="UTF-8">
 
-    <meta property="og:url"                content="http://whitecloudsbook.com">
-    <meta property="og:title"                content="White Clouds">
+    <meta property="og:url" content="http://whitecloudsbook.com">
+    <meta property="og:title" content="White Clouds Book">
     <meta property="og:description" content="A sci-fi novel by Yoav Niran">
+    <meta property="og:image"
+        content="https://res.cloudinary.com/whiteclouds/image/upload/w_800,dpr_auto,q_auto,f_auto/v1558535261/cover/wc-cover-horizontal-new.jpg">
+
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Montserrat&display=swap"
+        as="style">
+
+    <link href="https://res.cloudinary.com/whiteclouds/image/upload/w_192,q_auto/v1558535359/cover/cover-eye.png"
+        rel="icon" sizes="192x192" type="image/png">
+    <link href="https://res.cloudinary.com/whiteclouds/image/upload/w_160,q_auto/v1558535359/cover/cover-eye.png"
+        rel="icon" sizes="160x160" type="image/png">
+    <link href="https://res.cloudinary.com/whiteclouds/image/upload/w_96,q_auto/v1558535359/cover/cover-eye.png"
+        rel="icon" sizes="96x96" type="image/png">
+    <link href="https://res.cloudinary.com/whiteclouds/image/upload/w_32,q_auto/v1558535359/cover/cover-eye.png"
+        rel="icon" sizes="32x32" type="image/png">
 
     <!-- Chrome, Firefox OS and Opera -->
     <meta name="theme-color" content="#000">
@@ -18,35 +33,88 @@
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#000">
 
-    <title>White Clouds Book - by Yoav Niran</title>
+    <title>White Clouds Book - Sci-Fi Novel by Yoav Niran</title>
 
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<header>
-    <h1>White Clouds <br/><span>- A Sci-Fi Novel -</span></h1>
+    <header>
+        <h1>White Clouds</h1>
+        <h2>By: <a href="https://twitter.com/poeticGeek">Yoav Niran</a></h2>
+    </header>
 
-    <h2>By: <a href="https://twitter.com/poeticGeek">Yoav Niran</a></h2>
+    <div id="overlay" class="hidden">
+    </div>
 
-    <h3>Coming soon(ish)</h3>
-</header>
+    <section id="main">
+        <button id="" class="button dl-modal-open">Download Book</button>
+        <p>
+            The year is <span class="hls">2843</span>. More than five centuries after a fraction of humanity left a
+            dying Earth behind. Now, humans dwell aboard giant space stations called THE CLOUDS.
+            <br />
+            <br />
+            Up until a few days ago, life was good for <span class="hl">WENDALL SYING</span>. He was top of his class in
+            pilot-school, had good
+            friends and a loving and supportive mother. His dream was to become an exploration pilot like his father
+            was. That's
+            until his mother was found dead.
+            <br />
+            <br />
+            Wendall is left with no time to grieve. He is hunted and his only link to understanding what’s going on is a
+            recording
+            left by his mom. In it she reveals that she was part of a vigilance group with the sole purpose of
+            preventing a sentient
+            AI from rising again. When last encountered, this entity had killed tens of thousands.
+            <br />
+            <br />
+            Whoever is hunting Wendall is trying to resurrect the AI. It's not what Wendall can do or what he knows but
+            what he is.
+            His very DNA is fused with the AI's code and they'll do anything to get their hands on him. Without him they
+            cannot
+            bring back the entity fully and fulfill their plan to instate it as ruler over humans.
+             <br />
+            <br />
+            When his pursuers kill a friend sent to help him reach safety, Wendall is left completely alone. He has to
+            decide
+            whether to run or join the fight. If he runs, his pursuers will no doubt hurt more of his friends. If he
+            stays to fight
+            and gets caught the AI would be unstoppable. According to the Vigilance, setting it loose on the Clouds
+            could only mean
+            one thing – Annihilation.
+            <br />
+            <br />
+            Either way, Wendall has no choice but to confront what he cannot outrun - The part of the AI entity that's
+            inside him.
+        </p>
 
-<section id="main">
+        <button id="" class="button dl-modal-open">Download Book</button>
 
-    <p>
-        In the 24<sup>th</sup> century humans found out that Earth would soon no longer be able to sustain life. A fraction of humanity was spared and set course through the vastness of the galaxy in massive space ships to settle an earth-like planet. After a journey fraught with danger they reached their destination only to discover their new home was not habitable enough. Without the resources to venture out to space again they decided to stay and build a station that will sustain them.
-        <br/>
-        <br/>
-        Now, almost 500 years later, humanity is living and thriving on enormous space stations, fondly called The Clouds, orbiting the hostile planet. Thoughts of finding a terrestrial home to inhabit long abandoned.
-        <br/>
-        <br/>
-        Wendall Sying, a stellar young piloting cadet, finds his life suddenly shattered when his mother is discovered dead at their home. With no time to grieve he must go on the run from powerful forces he didn’t even know existed.
-        <br/>
-        <br/>
-        With the assistance of companions he meets along the way, Dall will try to survive his own perilous journey he was thrust into. Yet little does he know just how central he is in a struggle, that began centuries ago, which the results of will determine the fate of the entire human race.
-    </p>
-</section>
+        <img id="cover"
+            src="https://res.cloudinary.com/whiteclouds/image/upload/w_1000,dpr_auto,q_auto,f_auto/v1558535261/cover/wc-cover-horizontal-new.jpg"
+            alt="white clouds cover" />
+    </section>
 
+    <section id="download-modal" class="modal hidden">
+        <button class="close">X</button>
+
+        <h2>Please provide the password</h2>
+
+        <input type="password" id="dl-password" />
+
+        <button id="dl-book" class="button">Download Book</button>
+    </section>
+
+    <section id="loading-modal" class="modal hidden">
+        <div class="loader">
+            <img src="loader.svg" alt="loader" />
+        </div>
+
+        <h3></h3>
+    </section>
+
+    <script src="index.js"></script>
 </body>
+
 </html>
