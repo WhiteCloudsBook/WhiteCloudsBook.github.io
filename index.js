@@ -5,12 +5,15 @@
     const overlay = document.querySelector("#overlay"),
         dlModalOpen = document.querySelectorAll(".dl-modal-open"),
         dlModal = document.querySelector("#download-modal"),
+        successModal = document.querySelector("#success-modal"),
         loadingModal = document.querySelector("#loading-modal"),
         dlModalClose = dlModal.querySelector(".close"),
         dlPassword = dlModal.querySelector("#dl-password"),
-        download = document.querySelector("#dl-book");
+        download = document.querySelector("#dl-book"),
+        openBook = document.querySelector("#open-book");
 
-    let currentModal = null;
+    let currentModal = null,
+        isDownloadSuccess = false;
 
     const closeModal = () => {
         currentModal.removeEventListener("click", handleClickOutsideModal);
@@ -24,13 +27,27 @@
     };
 
     const openModal = (modal) => {
+
+        if (currentModal) {
+            closeModal();
+        }
+
         currentModal = modal;
         currentModal.classList.add("flex");
         overlay.classList.remove("hidden");
         overlay.addEventListener("click", handleClickOutsideModal);
     };
 
-    const openDownloadModal = () => openModal(dlModal);
+    const openSuccessModal = () => openModal(successModal);
+
+    const openDownloadModal = () => {
+        if (isDownloadSuccess) {
+            openSuccessModal();
+        }
+        else {
+            openModal(dlModal);
+        }
+    };
 
     const openLoadingModal = (text) => {
         if (currentModal !== loadingModal) {
@@ -49,9 +66,28 @@
         closeDownloadOverlay();
     });
 
-    download.addEventListener("click", () => {
+    const clearDownloadSuccess = () => {
+        isDownloadSuccess = false;
+    };
 
-        closeModal();
+    const handleSuccessfulDownload = (response) => {
+        response.json()
+            .then((result) => {
+                console.log("!!!!!!!!! got response json = ", result);
+                setTimeout(clearDownloadSuccess, 3.6e+6); //clear after an hour
+                openSuccessModal();
+            });
+    };
+
+    const handleAccessDenied = (response) => {
+
+    };
+
+    const handleDownloadError = () => {
+
+    };
+
+    download.addEventListener("click", () => {
         openLoadingModal("Authenticating...");
 
         const processHandler = setTimeout(() => {
@@ -69,11 +105,15 @@
             .then((response) => {
                 clearTimeout(processHandler);
                 console.log("!!!!!!!!! got response = ", response);
-                if (response.json) {
-                    response.json()
-                        .then((result) => {
-                            console.log("!!!!!!!!! got response json = ", result);
-                        });
+
+                if (response.ok) {
+                    handleSuccessfulDownload(response);
+                }
+                else if (response.status === 401) {
+                    handleAccessDenied();
+                }
+                else {
+                    handleDownloadError();
                 }
             });
     });
