@@ -46,6 +46,8 @@
         }
         else {
             openModal(dlModal);
+            dlModal.classList.remove("modal-error");
+            dlModal.querySelector(".input-error").textContent = "";
         }
     };
 
@@ -74,15 +76,16 @@
     const handleSuccessfulDownload = (response) => {
         response.json()
             .then((result) => {
-                console.log("!!!!!!!!! got response json = ", result);
                 setTimeout(clearDownloadSuccess, 3.6e+6); //clear after an hour
                 downloadUrl = result.info.downloadUrl;
+                isDownloadSuccess = true;
                 openSuccessModal();
             });
     };
 
-    const handleAccessDenied = (response) => {
-
+    const handleAccessDenied = () => {
+        dlModal.classList.add("modal-error");
+        dlModal.querySelector(".input-error").textContent = "Incorrect password, please try again";
     };
 
     const handleDownloadError = () => {
@@ -112,7 +115,6 @@
         })
             .then((response) => {
                 clearTimeout(processHandler);
-                console.log("!!!!!!!!! got response = ", response);
 
                 if (response.ok) {
                     handleSuccessfulDownload(response);

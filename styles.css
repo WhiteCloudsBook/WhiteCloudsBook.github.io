@@ -119,6 +119,17 @@ sup {
     top: 100px;
 }
 
+.modal-error {
+    box-shadow: 1px 3px 6px 2px #6b1437;
+}
+
+.input-error {
+    font-size: 1.2em;
+    color: red;
+    margin: 6px 0;
+    display: inline-block;
+}
+
 #download-modal {
     min-height: 260px;
 }
