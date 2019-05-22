@@ -7,7 +7,7 @@
         dlModal = document.querySelector("#download-modal"),
         successModal = document.querySelector("#success-modal"),
         loadingModal = document.querySelector("#loading-modal"),
-        dlModalClose = dlModal.querySelector(".close"),
+        closeModalBtn = dlModal.querySelector(".close-modal"),
         dlPassword = dlModal.querySelector("#dl-password"),
         download = document.querySelector("#dl-book"),
         openBook = document.querySelector("#open-book");
@@ -28,7 +28,6 @@
     };
 
     const openModal = (modal) => {
-
         if (currentModal) {
             closeModal();
         }
@@ -63,8 +62,8 @@
             button.addEventListener("click", openDownloadModal)
         });
 
-    dlModalClose.addEventListener("click", () => {
-        closeDownloadOverlay();
+    closeModalBtn.addEventListener("click", () => {
+        closeModal();
     });
 
     const clearDownloadSuccess = () => {
