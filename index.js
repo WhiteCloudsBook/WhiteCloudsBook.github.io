@@ -13,6 +13,7 @@
         openBook = document.querySelector("#open-book");
 
     let currentModal = null,
+        downloadUrl = null,
         isDownloadSuccess = false;
 
     const closeModal = () => {
@@ -68,6 +69,7 @@
 
     const clearDownloadSuccess = () => {
         isDownloadSuccess = false;
+        downloadUrl = null;
     };
 
     const handleSuccessfulDownload = (response) => {
@@ -75,6 +77,7 @@
             .then((result) => {
                 console.log("!!!!!!!!! got response json = ", result);
                 setTimeout(clearDownloadSuccess, 3.6e+6); //clear after an hour
+                downloadUrl = result.info.downloadUrl;
                 openSuccessModal();
             });
     };
@@ -86,6 +89,12 @@
     const handleDownloadError = () => {
 
     };
+
+    openBook.addEventListener("click", () => {
+        if (downloadUrl) {
+            window.open(downloadUrl);
+        }
+    });
 
     download.addEventListener("click", () => {
         openLoadingModal("Authenticating...");
