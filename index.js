@@ -75,13 +75,13 @@
     };
 
     const handleAccessDenied = () => {
-        openDownloadModal();
-        dlModal.classList.add("modal-error");
-        dlModal.querySelector(".input-error").textContent = "Incorrect password, please try again";
+        handleDownloadError("Incorrect password, please try again");
     };
 
-    const handleDownloadError = () => {
+    const handleDownloadError = (text) => {
         openDownloadModal();
+        dlModal.classList.add("modal-error");
+        dlModal.querySelector(".input-error").textContent = text;
     };
 
     const handleSuccessfulDownload = (response) => {
@@ -94,7 +94,7 @@
             })
             .catch((error) => {
                 console.log("failed to get response json", error);
-                handleDownloadError();
+                handleDownloadError("Download failed... :(");
             });
     };
 
@@ -106,7 +106,7 @@
 
     addClick("#dl-book", () => {
 
-        let password = dlPassword.value.replace(/^\W*|\W*$/g, "");
+        let password = dlPassword.value.replace(/^\s*|\s*$/g, "");
 
         if (password.length) {
             openLoadingModal("Authenticating...");
