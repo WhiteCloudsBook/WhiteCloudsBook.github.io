@@ -53,6 +53,7 @@
         }
         else {
             openModal(dlModal);
+            dlPassword.focus();
             dlModal.classList.remove("modal-error");
             dlModal.querySelector(".input-error").textContent = "";
         }
@@ -104,8 +105,7 @@
         }
     });
 
-    addClick("#dl-book", () => {
-
+    const downloadBook = () => {
         let password = dlPassword.value.replace(/^\s*|\s*$/g, "");
 
         if (password.length) {
@@ -133,10 +133,22 @@
                         handleAccessDenied();
                     }
                     else {
-                        handleDownloadError();
+                        handleDownloadError("Download failed... :(");
                     }
+                })
+                .catch((err) => {
+                    clearTimeout(processHandler);
+                    console.log("failed to download", err);
+                    handleDownloadError("Download failed... :(");
                 });
         }
-    });
+    };
 
+    addClick("#dl-book", downloadBook);
+
+    dlPassword.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            downloadBook();
+        }
+    });
 })();
