@@ -1,8 +1,7 @@
 html {
-    font-size: 14px;
+    font-size: 16px;
     margin: 0;
     padding: 0;
-
 }
 
 body {
@@ -16,7 +15,6 @@ body {
 }
 
 button {
-    /* font-family: 'Montserrat', sans-serif; */
     font-family: 'Cormorant Garamond', serif;
 }
 
@@ -175,14 +173,30 @@ sup {
     display: flex;
 }
 
+.italic {
+    font-style: italic
+}
+
+.hl,
+.hls {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #a8c1cd;
+}
+
+.hls {
+    font-size: 1.2em;
+    font-style: italic
+}
+
 @media (min-width: 1200px) {
     html {
-        font-size: 16px;
+        font-size: 18px;
     }
 }
 
 @media (max-width: 600px) {
     html {
-        font-size: 12px;
+        font-size: 14px;
     }
 }
