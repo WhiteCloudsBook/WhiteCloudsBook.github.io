@@ -138,6 +138,13 @@ sup {
 
 #success-modal {
     box-shadow: 1px 3px 6px 2px #384d50;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.modal .hl {
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .loader>img {

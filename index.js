@@ -151,4 +151,10 @@
             downloadBook();
         }
     });
+
+    window.__modals = {
+        openDownloadModal,
+        openLoadingModal,
+        openSuccessModal,
+    };
 })();
