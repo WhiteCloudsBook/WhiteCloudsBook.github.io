@@ -113,7 +113,7 @@
 
             const processHandler = setTimeout(() => {
                 openLoadingModal("Generating...");
-            }, 1500);
+            }, 2000);
 
             fetch(DL_URL, {
                 method: "POST",
