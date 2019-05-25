@@ -1,5 +1,4 @@
 (() => {
-
     const DL_URL = "https://us-central1-whiteclouds-share.cloudfunctions.net/whitecloudsShare";
 
     const overlay = document.querySelector("#overlay"),
