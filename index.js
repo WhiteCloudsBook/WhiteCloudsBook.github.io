@@ -74,7 +74,7 @@
     }
 
     const onOpenDownloadClick = () => {
-        sendEvent("download-click");
+        sendEvent("wcb_download-click");
         openDownloadModal();
     };
 
@@ -87,12 +87,12 @@
     };
 
     const handleAccessDenied = () => {
-        sendEvent("incorrect-password");
+        sendEvent("wcb_incorrect-password");
         handleDownloadError("Incorrect password, please try again");
     };
 
     const handleDownloadError = (text) => {
-        sendEvent("download-error");
+        sendEvent("wcb_download-error");
         openDownloadModal();
         dlModal.classList.add("modal-error");
         dlModal.querySelector(".input-error").textContent = text;
@@ -102,7 +102,7 @@
         response.json()
             .then((result) => {
                 setTimeout(clearDownloadSuccess, 3.6e+6); //clear after an hour
-                sendEvent("download-success");
+                sendEvent("wcb_download-success");
                 downloadUrl = result.info.downloadUrl;
                 isDownloadSuccess = true;
                 openSuccessModal();
@@ -115,7 +115,7 @@
 
     addClick("#open-book", () => {
         if (downloadUrl) {
-            sendEvent("book-open");
+            sendEvent("wcb_book-open");
             window.open(downloadUrl);
         }
     });
