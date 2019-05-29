@@ -1,4 +1,7 @@
 (() => {
+
+    const dataLayer = self.dataLayer;
+
     const DL_URL = "https://us-central1-whiteclouds-share.cloudfunctions.net/whitecloudsShare";
 
     const overlay = document.querySelector("#overlay"),
@@ -10,6 +13,10 @@
     let currentModal = null,
         downloadUrl = null,
         isDownloadSuccess = false;
+
+    const sendEvent = (eventName) => {
+        dataLayer.push({ "event": eventName });
+    };
 
     const addClick = (selector, cb) => {
         const elms = typeof selector === "string" ?
@@ -66,7 +73,12 @@
         loadingModal.querySelector("h3").textContent = text;
     }
 
-    addClick(".dl-modal-open", openDownloadModal);
+    const onOpenDownloadClick = () => {
+        sendEvent("download-click");
+        openDownloadModal();
+    };
+
+    addClick(".dl-modal-open", onOpenDownloadClick);
     addClick(".close-modal", closeModal);
 
     const clearDownloadSuccess = () => {
@@ -75,10 +87,12 @@
     };
 
     const handleAccessDenied = () => {
+        sendEvent("incorrect-password");
         handleDownloadError("Incorrect password, please try again");
     };
 
     const handleDownloadError = (text) => {
+        sendEvent("download-error");
         openDownloadModal();
         dlModal.classList.add("modal-error");
         dlModal.querySelector(".input-error").textContent = text;
@@ -88,6 +102,7 @@
         response.json()
             .then((result) => {
                 setTimeout(clearDownloadSuccess, 3.6e+6); //clear after an hour
+                sendEvent("download-success");
                 downloadUrl = result.info.downloadUrl;
                 isDownloadSuccess = true;
                 openSuccessModal();
@@ -100,6 +115,7 @@
 
     addClick("#open-book", () => {
         if (downloadUrl) {
+            sendEvent("book-open");
             window.open(downloadUrl);
         }
     });
