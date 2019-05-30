@@ -180,8 +180,9 @@ sup {
     display: flex;
 }
 
-.italic {
-    font-style: italic
+.emph {
+    font-style: italic;
+    font-weight: bold;
 }
 
 .hl,
