@@ -102,6 +102,11 @@ sup {
     color: #fff;
 }
 
+.button:hover {
+    background-color: #3f788b;
+    color: #111;
+}
+
 .dl-modal-open {
     margin-bottom: 30px;
 }
